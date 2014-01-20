@@ -1,0 +1,20 @@
+[user]
+	name = Joshua Cottrell
+	email = joshua.e.cottrell@gmail.com
+[github]
+	user = jcottrell
+[apply]
+	whitespace = nowarn
+[color]
+	status = auto
+	branch = auto
+	diff = auto
+	interactive = auto
+[core]
+	filemode = false
+[alias]
+	lc = log ORIG_HEAD.. --stat --no-merges
+	new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+	assume   = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
