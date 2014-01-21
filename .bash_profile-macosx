@@ -84,6 +84,7 @@ fi
 
 print_before_the_prompt() {
     psDate=$(date +"%F %H:%M:%S")
+    # https://github.com/djl/vcprompt - vcprompt and instructions
     printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s $txtpur%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD" $(vcprompt -f %s:%b%m%a%u)
 }
 if [ "$my_colors" = yes ]; then
