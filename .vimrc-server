@@ -87,9 +87,6 @@ set smartcase
 "Hard-wrap paragraphs of text
 nnoremap <leader>q gqip
 
-"Enable code folding
-set foldenable
-
 "Hide mouse when typing
 set mousehide
 
