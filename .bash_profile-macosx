@@ -1,76 +1,11 @@
-# Add yui, vcprompt (for prompt customs), and usr/local/bin (to head so local files are apps are used first)
+# Add vcprompt (for prompt customs), and usr/local (to head so local files are apps are used first)
 #	folders to PATH
-# Also :Setting PATH for MacPython 2.6 - The orginal version is saved in .bash_profile.pysave
-export PATH=/Users/joshuacottrell/Source/tools/bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/2.6/bin:$PATH
-
-# Node's nvm sourcing
-export NVM_HOME="$HOME/.nvm"
-if [[ -f "$NVM_HOME/nvm.sh" ]]; then
-	source "$NVM_HOME/nvm.sh"
+vcprompt_present=0
+my_dir=`pwd`
+if [ -f $my_dir/bin/vcprompt ]; then
+	vcprompt_present=1
+	export PATH=$my_dir/bin/:$PATH
 fi
-
-# Node's nvm bash tab completion sourcing
-if [[ -f "$NVM_HOME/bash_completion" ]]; then
-	source "$NVM_HOME/bash_completion"
-fi
-
-# Node's npm bash tab completion
-if npm -v >/dev/null 2>&1; then
-	###-begin-npm-completion-###
-	#
-	# npm command completion script
-	#
-	# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-	# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-	#
-
-	COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
-	COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
-	export COMP_WORDBREAKS
-
-	if type complete &>/dev/null; then
-	  _npm_completion () {
-		local si="$IFS"
-		IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-							   COMP_LINE="$COMP_LINE" \
-							   COMP_POINT="$COMP_POINT" \
-							   npm completion -- "${COMP_WORDS[@]}" \
-							   2>/dev/null)) || return $?
-		IFS="$si"
-	  }
-	  complete -F _npm_completion npm
-	elif type compdef &>/dev/null; then
-	  _npm_completion() {
-		si=$IFS
-		compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-					 COMP_LINE=$BUFFER \
-					 COMP_POINT=0 \
-					 npm completion -- "${words[@]}" \
-					 2>/dev/null)
-		IFS=$si
-	  }
-	  compdef _npm_completion npm
-	elif type compctl &>/dev/null; then
-	  _npm_completion () {
-		local cword line point words si
-		read -Ac words
-		read -cn cword
-		let cword-=1
-		read -l line
-		read -ln point
-		si="$IFS"
-		IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-						   COMP_LINE="$line" \
-						   COMP_POINT="$point" \
-						   npm completion -- "${words[@]}" \
-						   2>/dev/null)) || return $?
-		IFS="$si"
-	  }
-	  compctl -K _npm_completion npm
-	fi
-	###-end-npm-completion-###
-fi
-
 # Prompt customization
 if [ -f ~/.bash_prompt_colors ]; then
     . ~/.bash_prompt_colors
@@ -85,7 +20,11 @@ fi
 print_before_the_prompt() {
     psDate=$(date +"%F %H:%M:%S")
     # https://github.com/djl/vcprompt - vcprompt and instructions
-    printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s $txtpur%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD" $(vcprompt -f %s:%b%m%a%u)
+	if [ $vcprompt_present -eq 1 ]; then
+		printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s $txtpur%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD" $(vcprompt -f %s:%b%m%a%u)
+	else
+		printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s $txtpur%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD"
+	fi
 }
 if [ "$my_colors" = yes ]; then
 	PROMPT_COMMAND=print_before_the_prompt
