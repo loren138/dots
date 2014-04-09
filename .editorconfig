@@ -1,0 +1,45 @@
+; .editorconfig
+
+root = true
+
+[**.js]
+; Path to the external file format
+; The default is taken from the lib folder inside the folder extension.
+path=~/.vim/bundle/vim-jsbeautify/plugin/lib/js/lib/beautify.js
+; Javascript interpreter to be invoked by default 'node'
+bin=node
+charset = utf-8
+indent_style = tab
+tab_width = 4
+jslint_happy = true
+end_of_line = lf
+insert_final_newline = true
+detect_packers = true
+
+[**.css]
+path=~/.vim/bundle/vim-jsbeautify/plugin/lib/js/lib/beautify-css.js
+charset = utf-8
+indent_style = tab
+tab_width = 4
+curly_bracket_next_line = false
+brace_style = collapse
+keep_array_indentation = true
+trim_trailing_whitespace = true
+max_preserve_newlines = 3
+end_of_line = lf
+insert_final_newline = true
+detect_packers = true
+
+[**.html]
+; Using special comments
+; And such comments or apply only in global configuration
+; So it's best to avoid them
+;vim:path=~/.vim/bundle/vim-jsbeautify/plugin/lib/js/lib/beautify-html.js
+;vim:max_char=78
+charset = utf-8
+indent_style = tab
+tab_width = 4
+max_preserve_newlines = 3
+end_of_line = lf
+insert_final_newline = true
+indent_scripts = normal
