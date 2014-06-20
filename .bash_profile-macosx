@@ -34,6 +34,9 @@ fi
 # This is to use MacVim instead of command line VIM
 alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 alias g='gvim --remote-silent'
+# Easily hide and show dot files in Finder
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES;killall Finder /System/Library/CoreServices/Finder.app;echo "Now showing hidden files.\n"'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO;killall Finder /System/Library/CoreServices/Finder.app;echo "Now re-hiding hidden files.\n"'
 
 # Make the command line a vi tool
 # set -o vi

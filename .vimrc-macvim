@@ -49,6 +49,8 @@ set guifont=Menlo:h13
 
 " Syntax highlighting
 syntax on
+" Syntastic checker
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 
 "Tab stuff
 set tabstop=4
@@ -145,6 +147,21 @@ if has("autocmd")
 	autocmd BufWritePre *.txt,*.php,*.rb,*.htmlrb,*.html,*.py,*.js :call <SID>StripTrailingWhitespaces()
 	" Try wrapping text at 72 characters for git commit messages (http://web-design-weekly.com/2013/09/01/a-better-git-commit/)
 	autocmd Filetype gitcommit set spell textwidth=72
+	"Automatically change current directory to that of the file in the buffer
+	autocmd BufEnter * cd %:p:h
+	" more auto-completion, by language
+	" http://www.brankovukelic.com/post/2091037293/turn-vim-into-powerful-javascript-editor
+	" Ctrl+Shift+c, Ctrl+Shift+o (other commands are in the article)
+	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+	" js
+	autocmd FileType javascript noremap <buffer> <c-f> :call JsBeautify()<cr>
+	" css
+	autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+	" html
+	autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+
 end
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
@@ -173,9 +190,6 @@ set splitbelow
 " session settings
 set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 
-"Set up an HTML5 template for all new .html files
-"autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
-
 "Load the current buffer in Firefox - Mac specific.
 abbrev ff :! open -a firefox.app %:p<cr>
 
@@ -197,9 +211,6 @@ nmap <silent> <leader>s :set spell!<CR>
 "Saves time; maps the spacebar to colon
 " nmap <space> :
 
-"Automatically change current directory to that of the file in the buffer
-autocmd BufEnter * cd %:p:h
-
 "Map code completion to \ + tab
 imap <leader><tab> <C-x><C-o>
 
@@ -208,16 +219,13 @@ set wildmenu
 
 "Auto-completion menu
 set wildmode=list:longest
-" more auto-completion, by language
-" http://www.brankovukelic.com/post/2091037293/turn-vim-into-powerful-javascript-editor
-" Ctrl+Shift+c, Ctrl+Shift+o (other commands are in the article)
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " jshint and csslint run with the lint.vim plugin but get annoying so we can
 " disable them here
 let disable_lint=1
+
+"Macro to remove hosts junk added automatically
+let @g = 'd/^#:noh:set filetype=conf'
 
 "http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 set completeopt=longest,menuone
