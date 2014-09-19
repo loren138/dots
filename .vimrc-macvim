@@ -56,7 +56,7 @@ let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set noexpandtab
+set expandtab
 
 "Show command in bottom right portion of the screen
 set showcmd
