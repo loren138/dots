@@ -4,7 +4,7 @@ vcprompt_present=0
 my_dir=`pwd`
 if [ -f $my_dir/bin/vcprompt ]; then
 	vcprompt_present=1
-	export PATH=$my_dir/bin/:$PATH
+	export PATH=$my_dir/bin:$PATH
 fi
 # Prompt customization
 if [ -f ~/.bash_prompt_colors ]; then
