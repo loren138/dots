@@ -205,7 +205,7 @@ set wildmode=list:longest
 
 " NERDTree plugin settings
 " shortcut to open
-<C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<cr>
 " when quitting vim, NERDTree should not be the last thing open; quit it
 " automatically
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
