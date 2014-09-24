@@ -152,6 +152,13 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
+" NERDTree plugin settings
+" shortcut to open
+<C-n> :NERDTreeToggle<CR>
+" when quitting vim, NERDTree should not be the last thing open; quit it
+" automatically
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 " Indention, especially for visual mode
 nmap <D-[> <<
 nmap <D-]> >>

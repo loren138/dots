@@ -27,9 +27,6 @@ set autowrite
 "Display current cursor position in lower right corner.
 set ruler
 
-"Want a different map leader than \
-"set mapleader = ",";
-
 "Ever notice a slight lag after typing the leader key + command? This lowers
 "the timeout.
 " set timeoutlen=500
@@ -190,26 +187,12 @@ set splitbelow
 " session settings
 set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 
-"Load the current buffer in Firefox - Mac specific.
-abbrev ff :! open -a firefox.app %:p<cr>
-
-"Map a change directory to the desktop - Mac specific
-" nmap ,d :cd ~/Desktop<cr>:e.<cr>
-
 "Shortcut for editing  vimrc file in a new tab
 nmap ,ev :tabedit $MYVIMRC<cr>
 
 "Shortcut to enable/disable spell check and set spell check language
 nmap <silent> <leader>s :set spell!<CR>
-
-"Change zen coding plugin expansion key to shift + e
-" let g:user_zen_expandabbr_key = '<C-e>'
-
-"Faster shortcut for commenting. Requires T-Comment plugin
-" map ,c <c-_><c-_>
-
-"Saves time; maps the spacebar to colon
-" nmap <space> :
+set spelllang=en_us
 
 "Map code completion to \ + tab
 imap <leader><tab> <C-x><C-o>
@@ -219,6 +202,13 @@ set wildmenu
 
 "Auto-completion menu
 set wildmode=list:longest
+
+" NERDTree plugin settings
+" shortcut to open
+<C-n> :NERDTreeToggle<CR>
+" when quitting vim, NERDTree should not be the last thing open; quit it
+" automatically
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " jshint and csslint run with the lint.vim plugin but get annoying so we can
 " disable them here
@@ -234,9 +224,6 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-"Map escape key to jj -- much faster
-" imap jj <esc>
 
 "Delete all buffers (via Derek Wyatt)
 " nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<cr>
