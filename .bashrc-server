@@ -61,9 +61,23 @@ else
     my_colors=
 fi
 
+# Add vcprompt (for prompt customs), and usr/local (to head so local files are apps are used first)
+#	folders to PATH
+vcprompt_present=0
+my_dir=`pwd`
+if [ -f $my_dir/bin/vcprompt ]; then
+	vcprompt_present=1
+	export PATH=$my_dir/bin:$PATH
+fi
+
 print_before_the_prompt() {
     psDate=$(date +"%F %H:%M:%S")
-    printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD"
+    # https://github.com/djl/vcprompt - vcprompt and instructions
+	if [ $vcprompt_present -eq 1 ]; then
+		printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s $txtpur%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD" $(vcprompt -f [%s:%b%m%a%u])
+	else
+        printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD"
+    fi
 }
 
 if [ "$color_prompt" = yes ]; then
@@ -124,6 +138,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# if [ -z $INITIAL_SUDO ]; then
-# 	exec sudo -s INITIAL_SUDO=1
-# fi
+#if [ -z $INITIAL_SUDO ]; then
+#	exec sudo -s INITIAL_SUDO=1
+#fi
