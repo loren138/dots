@@ -2,6 +2,9 @@
 " Stripped down for server use
 " maintained by Joshua Cottrell
 
+"pathogen for plugins
+execute pathogen#infect()
+
 "Forget compatibility with Vi. Who cares.
 set nocompatible
 
