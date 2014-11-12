@@ -42,6 +42,11 @@ alias g='gvim --remote-silent'
 # Easily hide and show dot files in Finder
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES;killall Finder /System/Library/CoreServices/Finder.app;echo "Now showing hidden files.\n"'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO;killall Finder /System/Library/CoreServices/Finder.app;echo "Now re-hiding hidden files.\n"'
+# Some terminal shotcuts
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 
 # Make the command line a vi tool
 # set -o vi
