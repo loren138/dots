@@ -10,6 +10,10 @@ fi
 if [ -d /Applications/MAMP/Library/bin ] && [ -d /Applications/MAMP/bin/php/php5.5.10/bin ]; then
     export PATH=/Applications/MAMP/Library/bin:/Applications/MAMP/bin/php/php5.5.10/bin:$PATH
 fi
+# Laravel accessability
+if [ -d ~/.composer/vendor/bin/ ]; then
+    export PATH=~/.composer/vendor/bin/:$PATH
+fi
 
 # Prompt customization
 if [ -f ~/.bash_prompt_colors ]; then
