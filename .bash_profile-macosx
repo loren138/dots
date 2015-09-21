@@ -10,7 +10,7 @@ fi
 if [ -d /Applications/MAMP/Library/bin ] && [ -d /Applications/MAMP/bin/php/php5.5.10/bin ]; then
     export PATH=/Applications/MAMP/Library/bin:/Applications/MAMP/bin/php/php5.5.10/bin:$PATH
 fi
-# Laravel accessability
+# Composer / Laravel, Homestead accessability
 if [ -d ~/.composer/vendor/bin/ ]; then
     export PATH=~/.composer/vendor/bin/:$PATH
 fi
@@ -50,7 +50,8 @@ alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO;killall Fi
 alias ll='ls -alh'
 alias la='ls -A'
 alias l='ls -CF'
-
+# Vagrant ssh made easy
+alias sshv='ssh vagrant@127.0.0.1 -p 2222'
 
 # Make the command line a vi tool
 # set -o vi
