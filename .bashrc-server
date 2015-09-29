@@ -60,7 +60,10 @@ if [ -f ~/.bash_prompt_colors ]; then
 else
     my_colors=
 fi
-
+# Composer / Laravel accessability
+if [ -d ~/.composer/vendor/bin/ ]; then
+    export PATH=~/.composer/vendor/bin/:$PATH
+fi
 # Add vcprompt (for prompt customs), and usr/local (to head so local files are apps are used first)
 #	folders to PATH
 vcprompt_present=0

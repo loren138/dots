@@ -181,6 +181,13 @@ nnoremap <leader>ft Vatzf
 "Opens a vertical split and switches over (\v)
 nnoremap <leader>v <C-w>v<C-w>l
 
+" File explorer, netrw
+let g:netrw_altv      = 1
+let g:netrw_preview   = 1
+let g:netrw_liststyle = 3
+let g:netrw_winsize   = 80
+nnoremap <leader>f :40Vex<cr>
+
 "Split windows below the current window.
 set splitbelow              
 
@@ -202,10 +209,6 @@ set wildmenu
 
 "Auto-completion menu
 set wildmode=list:longest
-
-" NERDTree plugin settings
-" shortcut to open
-map <C-n> :NERDTreeToggle<cr>
 
 " jshint and csslint run with the lint.vim plugin but get annoying so we can
 " disable them here

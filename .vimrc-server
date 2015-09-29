@@ -155,12 +155,12 @@ inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
   \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-" NERDTree plugin settings
-" shortcut to open
-map <C-n> :NERDTreeToggle<CR>
-" when quitting vim, NERDTree should not be the last thing open; quit it
-" automatically
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" File explorer, netrw
+let g:netrw_altv      = 1
+let g:netrw_preview   = 1
+let g:netrw_liststyle = 3
+let g:netrw_winsize   = 80
+nnoremap <leader>f :40Vex<cr>
 
 " Indention, especially for visual mode
 nmap <D-[> <<
