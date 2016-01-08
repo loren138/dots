@@ -2,7 +2,6 @@
 " .vimrc File
 " Maintained by: Jeffrey Way
 " jeffrey@jeffrey-way.com
-" http://net.tutsplus.com
 "
 " modified by Joshua Cottrell for personal use
 
@@ -10,6 +9,9 @@
 call pathogen#infect()
 "Forget compatibility with Vi. Who cares.
 set nocompatible
+
+" Make <leader> easier to type
+let mapleader=","
 
 "Don't worry about the .swp and .swo swap files
 set nobackup
@@ -202,6 +204,9 @@ let g:netrw_preview   = 1
 let g:netrw_liststyle = 3
 let g:netrw_winsize   = 80
 nnoremap <leader>f :40Vex<cr>
+
+" File searcher - ctrlp
+let g:ctrlp_map = '<leader>p'
 
 "Split windows below the current window.
 set splitbelow              
