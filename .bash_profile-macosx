@@ -5,6 +5,10 @@ my_dir=`pwd`
 if [ -f $my_dir/bin/vcprompt ]; then
 	vcprompt_present=1
 	export PATH=$my_dir/bin:$PATH
+else
+    if [ -f $my_dir/bin/php-cs-fixer.phar ]; then
+        export PATH=$my_dir/bin:$PATH
+    fi
 fi
 # MAMP as my PHP
 if [ -d /Applications/MAMP/Library/bin ] && [ -d /Applications/MAMP/bin/php/php5.5.10/bin ]; then
@@ -46,6 +50,7 @@ alias g='gvim --remote-silent'
 # Easily hide and show dot files in Finder
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES;killall Finder /System/Library/CoreServices/Finder.app;echo "Now showing hidden files.\n"'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO;killall Finder /System/Library/CoreServices/Finder.app;echo "Now re-hiding hidden files.\n"'
+alias tellme='say Command completed'
 # Some terminal shotcuts
 alias ll='ls -alh'
 alias la='ls -A'
