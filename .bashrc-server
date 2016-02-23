@@ -52,6 +52,24 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
+# Add vcprompt (for prompt customs), and usr/local (to head so local files are apps are used first)
+#	folders to PATH
+vcprompt_present=0
+my_dir=`pwd`
+if [ -f $my_dir/bin/vcprompt ]; then
+	vcprompt_present=1
+	export PATH=$my_dir/bin:$PATH
+else
+    if [ -f $my_dir/bin/php-cs-fixer.phar ]; then
+        export PATH=$my_dir/bin:$PATH
+    fi
+fi
+
+# Composer / Laravel, Homestead accessability
+if [ -d ~/.composer/vendor/bin/ ]; then
+    export PATH=~/.composer/vendor/bin/:$PATH
+fi
+
 
 # Prompt customization
 if [ -f ~/.bash_prompt_colors ]; then
