@@ -215,7 +215,7 @@ set splitbelow
 set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 
 "Shortcut for editing  vimrc file in a new tab
-nmap ,ev :tabedit $MYVIMRC<cr>
+nmap <leader>ev :tabedit $MYVIMRC<cr>
 
 "Shortcut to enable/disable spell check and set spell check language
 nmap <silent> <leader>s :set spell!<CR>

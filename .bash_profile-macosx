@@ -10,13 +10,17 @@ else
         export PATH=$my_dir/bin:$PATH
     fi
 fi
-# MAMP as my PHP
-if [ -d /Applications/MAMP/Library/bin ] && [ -d /Applications/MAMP/bin/php/php5.5.10/bin ]; then
-    export PATH=/Applications/MAMP/Library/bin:/Applications/MAMP/bin/php/php5.5.10/bin:$PATH
+# user specific installs before system
+if [ -d /usr/local/sbin ]; then
+    export PATH=/usr/local/bin:$PATH
+fi
+# homebrew
+if [ -d /usr/local/sbin ]; then
+    export PATH=/usr/local/sbin:$PATH
 fi
 # Composer / Laravel, Homestead accessability
 if [ -d ~/.composer/vendor/bin/ ]; then
-    export PATH=~/.composer/vendor/bin/:$PATH
+    export PATH=~/.composer/vendor/bin:$PATH
 fi
 
 # Prompt customization
