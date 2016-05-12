@@ -62,7 +62,7 @@ alias l='ls -CF'
 
 # git aliases
 alias gs='git status'
-alias gb='git branch --vv'
+alias gb='git branch -vv'
 alias gr='git remote -v'
 alias ga='git add --all'
 alias gc='git commit -m '
