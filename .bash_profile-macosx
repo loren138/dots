@@ -59,8 +59,12 @@ alias tellme='say Command completed'
 alias ll='ls -alh'
 alias la='ls -A'
 alias l='ls -CF'
-# Vagrant ssh made easy
-alias sshv='ssh vagrant@127.0.0.1 -p 2222'
+
+# git aliases
+alias gits='git status'
+alias gitb='git branch --vv'
+alias gitr='git remote -v'
+alias gita='git add --all'
 
 # Make the command line a vi tool
 # set -o vi
