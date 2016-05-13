@@ -4,7 +4,11 @@ home=$HOME
 
 addLink()
 {
-    if [ -L $home/$1 ] || [ -f $home/$1 ] || [ -d $home/$1 ]; then
+    if [ -F $home/$1 ]; then
+        echo "Deleting link $home/$1 so it can be replaced..."
+        rm $home/$1
+    fi
+    if [ -f $home/$1 ] || [ -d $home/$1 ]; then
         echo "$home/$1 already exists"
     elif [ ! -f $myDir/$1 ] && [ ! -d $myDir/$1 ]; then
         echo "$myDir/$1 is not a file or directory"
