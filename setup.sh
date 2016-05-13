@@ -1,30 +1,35 @@
 #!/bin/sh
-myDir=`pwd`
+dotsDir=`pwd`
 home=$HOME
 
-deleteOldLink()
+makeLink()
 {
-    if [ -L $home/$1 ] || [ -h $home/$1 ]; then
-        echo "Deleting link $home/$1 so it can be replaced..."
-        rm $home/$1
-    fi
+    ln -s $dotsDir/$1 $home/$2
+    echo "  Created $2"
 }
 
 addLink()
 {
-    if [ -f $home/$1 ] || [ -d $home/$1 ]; then
-        echo "$home/$1 already exists"
-    elif [ ! -f $myDir/$1 ] && [ ! -d $myDir/$1 ]; then
-        echo "$myDir/$1 is not a file or directory"
+    # sort out parameters of the function
+    dotsName="$1"
+    if [ -z "$2" ]; then
+        homeName="$1"
     else
-        echo "Adding $1"
-        if [ -z "$2" ]; then
-            deleteOldLink $1
-            ln -s $myDir/$1 $home/$1
-        else
-            deleteOldLink $2
-            ln -s $myDir/$1 $home/$2
+        homeName="$2"
+    fi
+
+    echo "Processing $dotsDir/$dotsName ==> $home/$homeName"
+    if [ -f $home/$homeName ] || [ -d $home/$homeName ] || [ -L $home/$homeName ] || [ -h $home/$homeName ]; then
+        echo "  $home/$homeName already exists"
+        # but it could just be a link (file or directory)
+        if [ -L $home/$homeName ] || [ -h $home/$homeName ]; then
+            echo "  Deleting link $home/$homeName so it can be replaced..."
+            rm $home/$homeName
+            makeLink $dotsName $homeName
         fi
+    else
+        echo "  Adding $home/$homeName"
+        makeLink $dotsName $homeName
     fi
 }
 # main
