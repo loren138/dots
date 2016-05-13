@@ -4,7 +4,7 @@ home=$HOME
 
 deleteOldLink()
 {
-    if [ -L $home/$1 ]; then
+    if [ -L $home/$1 ] || [ -h $home/$1 ]; then
         echo "Deleting link $home/$1 so it can be replaced..."
         rm $home/$1
     fi
