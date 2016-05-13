@@ -2,12 +2,16 @@
 myDir=`pwd`
 home=$HOME
 
-addLink()
+deleteOldLink()
 {
-    if [ -F $home/$1 ]; then
+    if [ -L $home/$1 ]; then
         echo "Deleting link $home/$1 so it can be replaced..."
         rm $home/$1
     fi
+}
+
+addLink()
+{
     if [ -f $home/$1 ] || [ -d $home/$1 ]; then
         echo "$home/$1 already exists"
     elif [ ! -f $myDir/$1 ] && [ ! -d $myDir/$1 ]; then
@@ -15,8 +19,10 @@ addLink()
     else
         echo "Adding $1"
         if [ -z "$2" ]; then
+            deleteOldLink $1
             ln -s $myDir/$1 $home/$1
         else
+            deleteOldLink $2
             ln -s $myDir/$1 $home/$2
         fi
     fi
