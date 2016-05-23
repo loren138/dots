@@ -5,9 +5,9 @@
 * Run either `./setup.sh --server` or `./setup.sh --mac` depending on the system
 
 ## Set Editor to something useful
-sudo apt-get install vim
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 200
-sudo update-alternatives –config editor
+    sudo apt-get install vim  
+    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 200  
+    sudo update-alternatives –config editor  
 
 ## Sudo without password
 sudo visudo
