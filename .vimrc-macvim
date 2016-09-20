@@ -151,6 +151,9 @@ set listchars=tab:▸\ ,eol:¬
 " Set the language for spell check
 set spelllang=en_us
 
+" Ctrlp.vim
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 " Gundo sjl.bitbucket.org/gundo.vim/
 nnoremap <F5> :GundoToggle<CR>
 
