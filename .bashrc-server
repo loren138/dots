@@ -55,7 +55,7 @@ fi
 # Add vcprompt (for prompt customs), and usr/local (to head so local files are apps are used first)
 #	folders to PATH
 vcprompt_present=0
-my_dir=`pwd`
+my_dir=$HOME
 if [ -f $my_dir/bin/vcprompt ]; then
 	vcprompt_present=1
 	export PATH=$my_dir/bin:$PATH
