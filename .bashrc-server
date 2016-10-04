@@ -3,7 +3,10 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -28,7 +31,7 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -52,66 +55,29 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
-# Add vcprompt (for prompt customs), and usr/local (to head so local files are apps are used first)
-#	folders to PATH
-vcprompt_present=0
-my_dir=$HOME
-if [ -f $my_dir/bin/vcprompt ]; then
-	vcprompt_present=1
-	export PATH=$my_dir/bin:$PATH
-else
-    if [ -f $my_dir/bin/php-cs-fixer.phar ]; then
-        export PATH=$my_dir/bin:$PATH
-    fi
-fi
 
-# Composer / Laravel, Homestead accessability
-if [ -d ~/.composer/vendor/bin/ ]; then
-    export PATH=~/.composer/vendor/bin/:$PATH
-fi
-
-
-# Prompt customization
-if [ -f ~/.bash_prompt_colors ]; then
-    . ~/.bash_prompt_colors
-    my_colors=yes
-else
-    my_colors=
-fi
-# Composer / Laravel accessability
-if [ -d ~/.composer/vendor/bin/ ]; then
-    export PATH=~/.composer/vendor/bin/:$PATH
-fi
-# Add vcprompt (for prompt customs), and usr/local (to head so local files are apps are used first)
-#	folders to PATH
-vcprompt_present=0
-my_dir=`pwd`
-if [ -f $my_dir/bin/vcprompt ]; then
-	vcprompt_present=1
-	export PATH=$my_dir/bin:$PATH
-fi
-
+#if [ "$color_prompt" = yes ]; then
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#else
+#    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#fi
 print_before_the_prompt() {
     psDate=$(date +"%F %H:%M:%S")
-    # https://github.com/djl/vcprompt - vcprompt and instructions
-	if [ $vcprompt_present -eq 1 ]; then
-		printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s $txtpur%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD" $(vcprompt -f [%s:%b%m%a%u])
-	else
-        printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD"
-    fi
+    #printf "\n$txtylw[%s] $txtblu%s $txtcyn(%s)$txtblu:\n$bldgrn%s\n$txtrst" "$HOSTNAME" "$USER" "$psDate" "$PWD"
+    printf "\n$txtylw%s $txtblu%s$txtblk@$txtgrn%s\n$txtrst" "$psDate" "$USER" "$HOSTNAME"
 }
-
 if [ "$color_prompt" = yes ]; then
     if [ "$my_colors" = yes ]; then
         PROMPT_COMMAND=print_before_the_prompt
-        PS1='\$ '
+        PS1='\w \$ '
     else
         PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     fi
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PROMPT_COMMAND=print_before_the_prompt
+    PS1='\t ${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-unset color_prompt force_color_prompt my_colors
+unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -135,16 +101,16 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias ll='ls -alh'
+alias ll='ls -alF'
+alias upd='sudo apt-get upgrade && sudo apt-get autoremove && sudo reboot'
 alias la='ls -A'
 alias l='ls -CF'
-
-# git aliases
-alias gs='git status'
-alias gb='git branch -vv'
-alias gr='git remote -v'
-alias ga='git add --all'
-alias gc='git commit -m '
+alias agr='apachectl -k graceful'
+alias are='apachectl -k restart'
+alias .='cd ../'
+alias ..='cd ../../'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -162,10 +128,10 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
-
-#if [ -z $INITIAL_SUDO ]; then
-#	exec sudo -s INITIAL_SUDO=1
-#fi
